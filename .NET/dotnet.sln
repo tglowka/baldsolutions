@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest-api", "nest-api\nest-api.csproj", "{52244FB1-8ABD-4E0A-A672-7827B8BE4F23}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nsubstitute_1", "nsubstitute\nsubstitute_1.csproj", "{2EBB2DCF-A480-4ABD-8829-B8F6FEFB6046}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nsubstitute_1", "nsubstitute_1\nsubstitute_1.csproj", "{2EBB2DCF-A480-4ABD-8829-B8F6FEFB6046}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nsubstitute-tests", "nsubstitute-tests\nsubstitute-tests.csproj", "{2A1B530A-7A02-4A7D-8D6A-01E7BDD03DA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nsubstitute_1-tests", "nsubstitute_1-tests\nsubstitute_1-tests.csproj", "{2A1B530A-7A02-4A7D-8D6A-01E7BDD03DA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
