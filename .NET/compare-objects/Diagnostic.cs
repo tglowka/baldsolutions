@@ -22,7 +22,7 @@ namespace compare_objects
 
         public void MeasureExecutionTimeWithEquals()
         {
-            Console.WriteLine("Structs with Equals method overriden");
+            Console.WriteLine("Structs with Equals method overridden");
 
             int i = 0;
 
@@ -43,7 +43,7 @@ namespace compare_objects
 
         public void MeasureExecutionTimeWithoutEquals()
         {
-            Console.WriteLine("Structs without Equals method overriden");
+            Console.WriteLine("Structs without Equals method overridden");
 
             int i = 0;
 
