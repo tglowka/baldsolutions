@@ -13,11 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "compare-objects", "compare-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "compare-objects-tests", "compare-objects-tests\compare-objects-tests.csproj", "{40601FF4-D6E3-413A-B0B2-B580B1562388}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "async-eliding-part-1", "async-eliding-part-1\async-eliding-part-1.csproj", "{7412094B-3F39-4E5B-AAEE-ADA512813263}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "async-eliding-part-1", "async-eliding-part-1\async-eliding-part-1.csproj", "{7412094B-3F39-4E5B-AAEE-ADA512813263}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "async-eliding-part-1-tests", "async-eliding-part-1-tests\async-eliding-part-1-tests.csproj", "{59708250-DFDC-4D4A-9213-FF5B18D69E1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "async-eliding-part-1-tests", "async-eliding-part-1-tests\async-eliding-part-1-tests.csproj", "{59708250-DFDC-4D4A-9213-FF5B18D69E1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "async-eliding-part-1-benchmark", "async-eliding-part-1-benchmark\async-eliding-part-1-benchmark.csproj", "{00C7ADF9-83F7-433C-B5DA-0F0A2BF2DDEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "async-eliding-part-1-benchmark", "async-eliding-part-1-benchmark\async-eliding-part-1-benchmark.csproj", "{00C7ADF9-83F7-433C-B5DA-0F0A2BF2DDEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "async-eliding-part-2", "async-eliding-part-2\async-eliding-part-2.csproj", "{3BD31AB0-2E01-4FE5-B946-DC4C2E165508}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "async-eliding-part-2-tests", "async-eliding-part-2-tests\async-eliding-part-2-tests.csproj", "{1C73CC05-53B0-49BC-A39C-04B8AE7C36CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{00C7ADF9-83F7-433C-B5DA-0F0A2BF2DDEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00C7ADF9-83F7-433C-B5DA-0F0A2BF2DDEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00C7ADF9-83F7-433C-B5DA-0F0A2BF2DDEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BD31AB0-2E01-4FE5-B946-DC4C2E165508}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BD31AB0-2E01-4FE5-B946-DC4C2E165508}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BD31AB0-2E01-4FE5-B946-DC4C2E165508}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BD31AB0-2E01-4FE5-B946-DC4C2E165508}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C73CC05-53B0-49BC-A39C-04B8AE7C36CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C73CC05-53B0-49BC-A39C-04B8AE7C36CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C73CC05-53B0-49BC-A39C-04B8AE7C36CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C73CC05-53B0-49BC-A39C-04B8AE7C36CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
