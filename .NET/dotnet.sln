@@ -19,9 +19,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "async-eliding-part-1-tests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "async-eliding-part-1-benchmark", "async-eliding-part-1-benchmark\async-eliding-part-1-benchmark.csproj", "{00C7ADF9-83F7-433C-B5DA-0F0A2BF2DDEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "async-eliding-part-2", "async-eliding-part-2\async-eliding-part-2.csproj", "{3BD31AB0-2E01-4FE5-B946-DC4C2E165508}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "async-eliding-part-2", "async-eliding-part-2\async-eliding-part-2.csproj", "{3BD31AB0-2E01-4FE5-B946-DC4C2E165508}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "async-eliding-part-2-tests", "async-eliding-part-2-tests\async-eliding-part-2-tests.csproj", "{1C73CC05-53B0-49BC-A39C-04B8AE7C36CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "async-eliding-part-2-tests", "async-eliding-part-2-tests\async-eliding-part-2-tests.csproj", "{1C73CC05-53B0-49BC-A39C-04B8AE7C36CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "data-locality", "data-locality\data-locality.csproj", "{A3DE3443-44EF-48E2-9292-A66DBA684390}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "data-locality-benchmark", "data-locality-benchmark\data-locality-benchmark.csproj", "{7013E3C4-D031-4D98-959A-41032F7F99A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "data-locality-tests", "data-locality-tests\data-locality-tests.csproj", "{6AB07C45-27B2-463F-B1F9-323E4FB5BA09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +75,18 @@ Global
 		{1C73CC05-53B0-49BC-A39C-04B8AE7C36CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C73CC05-53B0-49BC-A39C-04B8AE7C36CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C73CC05-53B0-49BC-A39C-04B8AE7C36CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3DE3443-44EF-48E2-9292-A66DBA684390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3DE3443-44EF-48E2-9292-A66DBA684390}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3DE3443-44EF-48E2-9292-A66DBA684390}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3DE3443-44EF-48E2-9292-A66DBA684390}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7013E3C4-D031-4D98-959A-41032F7F99A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7013E3C4-D031-4D98-959A-41032F7F99A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7013E3C4-D031-4D98-959A-41032F7F99A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7013E3C4-D031-4D98-959A-41032F7F99A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AB07C45-27B2-463F-B1F9-323E4FB5BA09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AB07C45-27B2-463F-B1F9-323E4FB5BA09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AB07C45-27B2-463F-B1F9-323E4FB5BA09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AB07C45-27B2-463F-B1F9-323E4FB5BA09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
