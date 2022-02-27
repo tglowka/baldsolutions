@@ -33,7 +33,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINQ-vs-PLINQ", "LINQ-vs-PL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINQ-vs-PLINQ-benchmark", "LINQ-vs-PLINQ-benchmark\LINQ-vs-PLINQ-benchmark.csproj", "{CD82E1A5-35CC-4AAE-9260-9D002E8478D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQ-vs-PLINQ-tests", "LINQ-vs-PLINQ-tests\LINQ-vs-PLINQ-tests.csproj", "{902C1574-99F3-48E2-95EE-D30ACF0788A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINQ-vs-PLINQ-tests", "LINQ-vs-PLINQ-tests\LINQ-vs-PLINQ-tests.csproj", "{902C1574-99F3-48E2-95EE-D30ACF0788A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Add-vs-AddRange", "Add-vs-AddRange\Add-vs-AddRange.csproj", "{53C2F97E-2061-4EA9-844A-8FD813438A95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Add-vs-AddRange-benchmark", "Add-vs-AddRange-benchmark\Add-vs-AddRange-benchmark.csproj", "{5C691AAC-07E4-4E58-B16A-46F963D2FC4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Add-vs-AddRange-tests", "Add-vs-AddRange-tests\Add-vs-AddRange-tests.csproj", "{A92A4D52-9F21-4F63-AE5B-18ABD62B5591}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +111,18 @@ Global
 		{902C1574-99F3-48E2-95EE-D30ACF0788A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{902C1574-99F3-48E2-95EE-D30ACF0788A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{902C1574-99F3-48E2-95EE-D30ACF0788A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53C2F97E-2061-4EA9-844A-8FD813438A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53C2F97E-2061-4EA9-844A-8FD813438A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53C2F97E-2061-4EA9-844A-8FD813438A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53C2F97E-2061-4EA9-844A-8FD813438A95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C691AAC-07E4-4E58-B16A-46F963D2FC4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C691AAC-07E4-4E58-B16A-46F963D2FC4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C691AAC-07E4-4E58-B16A-46F963D2FC4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C691AAC-07E4-4E58-B16A-46F963D2FC4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A92A4D52-9F21-4F63-AE5B-18ABD62B5591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A92A4D52-9F21-4F63-AE5B-18ABD62B5591}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A92A4D52-9F21-4F63-AE5B-18ABD62B5591}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A92A4D52-9F21-4F63-AE5B-18ABD62B5591}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
