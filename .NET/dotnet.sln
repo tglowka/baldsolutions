@@ -35,11 +35,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINQ-vs-PLINQ-benchmark", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINQ-vs-PLINQ-tests", "LINQ-vs-PLINQ-tests\LINQ-vs-PLINQ-tests.csproj", "{902C1574-99F3-48E2-95EE-D30ACF0788A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Add-vs-AddRange", "Add-vs-AddRange\Add-vs-AddRange.csproj", "{53C2F97E-2061-4EA9-844A-8FD813438A95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Add-vs-AddRange", "Add-vs-AddRange\Add-vs-AddRange.csproj", "{53C2F97E-2061-4EA9-844A-8FD813438A95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Add-vs-AddRange-benchmark", "Add-vs-AddRange-benchmark\Add-vs-AddRange-benchmark.csproj", "{5C691AAC-07E4-4E58-B16A-46F963D2FC4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Add-vs-AddRange-benchmark", "Add-vs-AddRange-benchmark\Add-vs-AddRange-benchmark.csproj", "{5C691AAC-07E4-4E58-B16A-46F963D2FC4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Add-vs-AddRange-tests", "Add-vs-AddRange-tests\Add-vs-AddRange-tests.csproj", "{A92A4D52-9F21-4F63-AE5B-18ABD62B5591}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Add-vs-AddRange-tests", "Add-vs-AddRange-tests\Add-vs-AddRange-tests.csproj", "{A92A4D52-9F21-4F63-AE5B-18ABD62B5591}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "for-vs-foreach", "for-vs-foreach\for-vs-foreach.csproj", "{1066D8FF-4BE3-49A2-A6CB-56D9328C267D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "for-vs-foreach-benchmark", "for-vs-foreach-benchmark\for-vs-foreach-benchmark.csproj", "{00530A0E-29FB-497C-A944-B9893A4D1FCC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +127,14 @@ Global
 		{A92A4D52-9F21-4F63-AE5B-18ABD62B5591}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A92A4D52-9F21-4F63-AE5B-18ABD62B5591}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A92A4D52-9F21-4F63-AE5B-18ABD62B5591}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1066D8FF-4BE3-49A2-A6CB-56D9328C267D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1066D8FF-4BE3-49A2-A6CB-56D9328C267D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1066D8FF-4BE3-49A2-A6CB-56D9328C267D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1066D8FF-4BE3-49A2-A6CB-56D9328C267D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00530A0E-29FB-497C-A944-B9893A4D1FCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00530A0E-29FB-497C-A944-B9893A4D1FCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00530A0E-29FB-497C-A944-B9893A4D1FCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00530A0E-29FB-497C-A944-B9893A4D1FCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
