@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31410.357
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest-api", "nest-api\nest-api.csproj", "{52244FB1-8ABD-4E0A-A672-7827B8BE4F23}"
 EndProject
@@ -43,7 +43,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Add-vs-AddRange-tests", "Ad
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "for-vs-foreach", "for-vs-foreach\for-vs-foreach.csproj", "{1066D8FF-4BE3-49A2-A6CB-56D9328C267D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "for-vs-foreach-benchmark", "for-vs-foreach-benchmark\for-vs-foreach-benchmark.csproj", "{00530A0E-29FB-497C-A944-B9893A4D1FCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "for-vs-foreach-benchmark", "for-vs-foreach-benchmark\for-vs-foreach-benchmark.csproj", "{00530A0E-29FB-497C-A944-B9893A4D1FCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "closure", "closure\closure.csproj", "{15ECDC7C-095D-48CC-9505-63BAE23D7055}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "closure-tests", "closure-tests\closure-tests.csproj", "{17468610-9303-4562-9AAC-B3196DB99AB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +139,14 @@ Global
 		{00530A0E-29FB-497C-A944-B9893A4D1FCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00530A0E-29FB-497C-A944-B9893A4D1FCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00530A0E-29FB-497C-A944-B9893A4D1FCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15ECDC7C-095D-48CC-9505-63BAE23D7055}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15ECDC7C-095D-48CC-9505-63BAE23D7055}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15ECDC7C-095D-48CC-9505-63BAE23D7055}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15ECDC7C-095D-48CC-9505-63BAE23D7055}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17468610-9303-4562-9AAC-B3196DB99AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17468610-9303-4562-9AAC-B3196DB99AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17468610-9303-4562-9AAC-B3196DB99AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17468610-9303-4562-9AAC-B3196DB99AB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
