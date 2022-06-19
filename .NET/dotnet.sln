@@ -63,9 +63,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "arraypool", "arraypool\arra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "arraypool-benchmark", "arraypool-benchmark\arraypool-benchmark.csproj", "{0F521734-1CDD-49D5-B548-449E389154F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stackalloc", "stackalloc\stackalloc.csproj", "{B608471F-24E4-4586-B22F-8D2F7D45C3A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stackalloc", "stackalloc\stackalloc.csproj", "{B608471F-24E4-4586-B22F-8D2F7D45C3A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stackalloc-benchmark", "stackalloc-benchmark\stackalloc-benchmark.csproj", "{0E0E1E4E-6455-43EA-B132-02FA335FB1F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stackalloc-benchmark", "stackalloc-benchmark\stackalloc-benchmark.csproj", "{0E0E1E4E-6455-43EA-B132-02FA335FB1F5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "square-and-multiply", "square-and-multiply\square-and-multiply.csproj", "{8127261A-066C-4DBF-BF6A-BDA2280F389D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -201,6 +203,10 @@ Global
 		{0E0E1E4E-6455-43EA-B132-02FA335FB1F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E0E1E4E-6455-43EA-B132-02FA335FB1F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E0E1E4E-6455-43EA-B132-02FA335FB1F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8127261A-066C-4DBF-BF6A-BDA2280F389D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8127261A-066C-4DBF-BF6A-BDA2280F389D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8127261A-066C-4DBF-BF6A-BDA2280F389D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8127261A-066C-4DBF-BF6A-BDA2280F389D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
