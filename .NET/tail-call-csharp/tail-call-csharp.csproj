@@ -9,8 +9,4 @@
     <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
-  </ItemGroup>
-
 </Project>
