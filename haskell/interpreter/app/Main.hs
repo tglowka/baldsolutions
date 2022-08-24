@@ -8,32 +8,43 @@ type Environment =[(Identifier, Value)]
 
 -- data
 data Expression = Number Int
+    | Boolean Bool
     | Var Identifier
     | Plus Expression Expression
     | Minus Expression Expression
     | Times Expression Expression
     | Divide Expression Expression
     | Power Expression Expression
-    | Let Identifier Expression Expression
+    | Equals Expression Expression
+    | Let Defn Expression
     | Lambda [Identifier] Expression
     | Apply Expression [Expression]
-    deriving Show
+    | If Expression Expression Expression
+    deriving (Show, Eq)
 
 data Value = 
       NumberValue Int |
+      BoolValue Bool |
       Closure [Identifier] Expression Environment 
-      deriving Show
+      deriving (Show, Eq)
+
+data Defn = Val Identifier Expression |
+            Rec Identifier Expression
+            deriving (Show, Eq)
 
 data MyException = ThisException | ThatException deriving Show
 
 instance Exception MyException
 
-instance Eq Value where
-    (==) (NumberValue x) (NumberValue y)  = x == y
-
 -- functions
 eval :: Expression -> Environment -> Value
 eval (Number number) environment = NumberValue number
+eval (Boolean b) environment = BoolValue b
+eval (Equals e1 e2) env = BoolValue $ (eval e1 env) == (eval e2 env)
+eval (If g e1 e2) env = case  eval g env of   
+                        (BoolValue True) -> eval e1 env
+                        (BoolValue False) -> eval e2 env
+                       
 eval (Plus left righ) environment = NumberValue (left' + righ')
                                     where (NumberValue left') = eval left environment
                                           (NumberValue righ') = eval righ environment
@@ -56,8 +67,8 @@ eval (Power left righ) environment = NumberValue (left' ^ righ')
 
 eval (Var identifier) environment = find environment identifier
 
-eval (Let identifier expression1 expression2) environment = 
-      eval expression2 (extendEnvironment environment identifier expression1)
+eval (Let definition expression) environment = 
+      eval expression (extendEnvironment environment definition)
 
 eval (Lambda identifiers expression) environment = Closure identifiers expression environment
 
@@ -72,9 +83,10 @@ apply _ _ = throw ThisException
 find :: Environment -> Identifier -> Value
 find environment identifier = snd $ head $ filter (\(x', _) -> x' == identifier) environment
 
-extendEnvironment :: Environment -> Identifier -> Expression -> Environment
-extendEnvironment environment identifier expression = 
-      (identifier, eval expression environment) : environment
+extendEnvironment environment (Val identifier expression) = (identifier, eval expression environment) : environment
+extendEnvironment environment (Rec identifier (Lambda args expression)) = environment' where environment' = (identifier, Closure args expression environment'):environment
+extendEnvironment _ _ = error "Only lambdas can be recursive"      
+
 
 
 main :: IO ()

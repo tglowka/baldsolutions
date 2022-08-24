@@ -62,19 +62,26 @@ testLet :: Test
 testLet = 
     TestCase $ assertEqual "Function: eval. Let x = 10 in 2 * x gives 10"
                            (NumberValue 20)
-                           (eval ((Let "x") (Number 10) (Times (Number 2) (Var "x"))) [])
+                           (eval (( Let (Val "x" $ Number 10)) (Times (Number 2) (Var "x"))) [])
 
 
 testLambda :: Test
 testLambda =
-    TestCase $ assertEqual "Function: eval. Let x = (\\(y, z) -> y + z ) in x 3 7 gives 10"
+    TestCase $ assertEqual "Function: eval. Let x = (y,z -> y + z ) in x 3 7 gives 10"
                            (NumberValue 10)
-                           (eval (Let "x" (Lambda ["y", "z"] (Plus (Var "y") (Var "z"))) (Apply (Var "x") [Number 3, Number 7])) []) 
+                           (eval (Let (Val "x" (Lambda ["y", "z"] (Plus (Var "y") (Var "z")))) (Apply (Var "x") [Number 3, Number 7])) []) 
 
-testLambdaError :: Test
-testLambdaError =
-    TestCase $ assertException --ThisException
-                           (eval (Let "x" (Lambda ["y", "z"] (Plus (Var "y") (Var "z"))) (Apply (Var "a") [Number 3, Number 7])) [("a",NumberValue 11)])
+testRecursiveLambda :: Test
+testRecursiveLambda =
+    TestCase $ assertEqual "Function: eval. Let sum = (x -> if x==0 then 0 else x + sum x-1) in x sum 10 gives 55"
+                           (NumberValue 55)
+                           (eval (Let (Rec "sum" (Lambda ["x"] (If (Equals (Var "x") (Number 0)) (Number 0) (Plus (Var "x") (Apply (Var "sum") [Minus (Var "x") (Number 1)]))))) (Apply (Var "sum") [Number 10])) [])
+
+-- testLambdaError :: Test
+-- testLambdaError =
+--     TestCase $ assertException --TODO
+--                            (eval (Let (Rec "sum" (Lambda ["x"] (If (Equals (Var "x") (Number 0)) (Number 0) (Plus (Var "x") (Apply (Var "sum") [Minus (Var "x") (Number 1)]))))) (Apply (Var "sum") (Number 3))))
+
 
 main :: IO Counts
 main = runTestTT $ TestList [
@@ -87,5 +94,6 @@ main = runTestTT $ TestList [
     testPower,
     testLet,
     testLambda,
-    testLambdaError
+    testRecursiveLambda
+    -- ,testLambdaError
     ]
