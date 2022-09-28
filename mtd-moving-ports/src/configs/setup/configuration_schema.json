@@ -1,0 +1,55 @@
+{
+  "type": "object",
+  "properties": {
+    "redis_connection_configuration": {
+      "type": "object",
+      "properties": {
+        "host": { "type": "string" },
+        "port": { "type": "integer" },
+        "db": { "type": "integer" },
+        "charset": { "type": "string" },
+        "decode_responses": { "type": "boolean" }
+      },
+      "required": ["host", "port", "db", "charset", "decode_responses"]
+    },
+    "redis_subscriber_configuration": {
+      "type": "object",
+      "properties": {
+        "subscriber_channel_names": { "type": "array" }
+      },
+      "required": ["subscriber_channel_names"]
+    },
+    "nftables_service_configuration": {
+      "type": "object",
+      "properties": {
+        "nft_startup_commands_path": { "type": "string" },
+        "nft_address_rules_path": { "type": "string" },
+        "max_port_number": { "type": "number" },
+        "tcp_ports": { "type": "array" },
+        "watched_addresses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ip": { "type": "string" },
+              "tcp_ignore": { "type": "array" }
+            },
+            "required": ["ip", "tcp_ignore"]
+          }
+        }
+      },
+      "required": [
+        "nft_startup_commands_path",
+        "nft_address_rules_path",
+        "max_port_number",
+        "tcp_ports",
+        "watched_addresses"
+      ]
+    }
+  },
+  "required": [
+    "redis_connection_configuration",
+    "redis_subscriber_configuration",
+    "nftables_service_configuration"
+  ]
+}

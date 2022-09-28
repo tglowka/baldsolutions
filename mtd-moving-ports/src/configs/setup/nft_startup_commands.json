@@ -1,0 +1,64 @@
+{
+    "commands": [
+        {
+            "flush": {
+                "ruleset": null
+            }
+        },
+        {
+            "add": {
+                "table": {
+                    "family": "ip",
+                    "name": "nat"
+                }
+            }
+        },
+        {
+            "add": {
+                "chain": {
+                    "family": "ip",
+                    "table": "nat",
+                    "name": "prerouting",
+                    "type": "nat",
+                    "hook": "prerouting",
+                    "prio": -100,
+                    "policy": "accept"
+                }
+            }
+        },
+        {
+            "add": {
+                "table": {
+                    "family": "ip",
+                    "name": "raw"
+                }
+            }
+        },
+        {
+            "add": {
+                "chain": {
+                    "family": "ip",
+                    "table": "raw",
+                    "name": "prerouting",
+                    "type": "filter",
+                    "hook": "prerouting",
+                    "prio": -300,
+                    "policy": "accept"
+                }
+            }
+        },
+        {
+            "add": {
+                "chain": {
+                    "family": "ip",
+                    "table": "raw",
+                    "name": "output",
+                    "type": "filter",
+                    "hook": "output",
+                    "prio": -100,
+                    "policy": "accept"
+                }
+            }
+        }
+    ]
+}

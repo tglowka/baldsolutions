@@ -1,0 +1,24 @@
+{
+  "redis_connection_configuration": {
+    "host": "127.0.0.1",
+    "port": 6379,
+    "db": 0,
+    "charset": "utf-8",
+    "decode_responses": true
+  },
+  "redis_subscriber_configuration": {
+    "subscriber_channel_names": ["test_channel_1", "test_channel_2"]
+  },
+  "nftables_service_configuration": {
+    "nft_startup_commands_path": "./src/configs/setup/nft_startup_commands.json",
+    "nft_address_rules_path": "./src/configs/setup/nft_address_rules.json",
+    "max_port_number": 1050,
+    "tcp_ports": [80, 22],
+    "watched_addresses": [
+      {
+        "ip": "192.168.23.130",
+        "tcp_ignore": [80]
+      }
+    ]
+  }
+}

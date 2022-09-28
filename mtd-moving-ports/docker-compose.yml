@@ -1,0 +1,48 @@
+version: "3.9"
+services:
+  nftables:
+    container_name: nftables
+    build: 
+      context: . 
+      dockerfile: nftables-dockerfile
+    cap_add:
+      - NET_ADMIN
+    networks:
+      network:
+        ipv4_address: 10.0.0.2
+
+  bad-nmap:
+    container_name: bad-nmap
+    build: 
+      context: .
+      dockerfile: nmap-dockerfile
+    networks:
+      network:
+        ipv4_address: 10.0.0.3
+  
+
+  good-nmap:
+    container_name: good-nmap
+    build: 
+      context: .
+      dockerfile: nmap-dockerfile
+    networks:
+      network:
+        ipv4_address: 10.0.0.4
+
+  redis:
+    container_name: redis
+    image: redis
+    networks:
+      network:
+        ipv4_address: 10.0.0.5
+
+networks:
+  network:
+    name: nftables-network
+    internal: true
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.0.0/24
+          gateway: 10.0.0.1

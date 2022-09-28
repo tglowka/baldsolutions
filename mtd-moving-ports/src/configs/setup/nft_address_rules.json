@@ -1,0 +1,528 @@
+{
+    "rules": [
+        {
+            "add": {
+                "rule": {
+                    "family": "ip",
+                    "table": "nat",
+                    "chain": "prerouting",
+                    "expr": [
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "ip",
+                                        "field": "saddr"
+                                    }
+                                },
+                                "right": "{{SOURCE_ADDRESS}}"
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "dport"
+                                    }
+                                },
+                                "right": "{{DESTINATION_PORT}}"
+                            }
+                        },
+                        {
+                            "redirect": {
+                                "port": "{{REDIRECTED_PORT}}"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "add": {
+                "rule": {
+                    "family": "ip",
+                    "table": "nat",
+                    "chain": "prerouting",
+                    "expr": [
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "ip",
+                                        "field": "saddr"
+                                    }
+                                },
+                                "right": "{{SOURCE_ADDRESS}}"
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "dport"
+                                    }
+                                },
+                                "right": "{{REDIRECTED_PORT}}"
+                            }
+                        },
+                        {
+                            "redirect": {
+                                "port": "{{DESTINATION_PORT}}"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "add": {
+                "rule": {
+                    "family": "ip",
+                    "table": "raw",
+                    "chain": "prerouting",
+                    "expr": [
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "ip",
+                                        "field": "saddr"
+                                    }
+                                },
+                                "right": "{{SOURCE_ADDRESS}}"
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "flags"
+                                    }
+                                },
+                                "right": 41
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "dport"
+                                    }
+                                },
+                                "right": "{{DESTINATION_PORT}}"
+                            }
+                        },
+                        {
+                            "mangle": {
+                                "key": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "dport"
+                                    }
+                                },
+                                "value": "{{REDIRECTED_PORT}}"
+                            }
+                        },
+                        {
+                            "notrack": null
+                        },
+                        {
+                            "return": null
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "add": {
+                "rule": {
+                    "family": "ip",
+                    "table": "raw",
+                    "chain": "prerouting",
+                    "expr": [
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "ip",
+                                        "field": "saddr"
+                                    }
+                                },
+                                "right": "{{SOURCE_ADDRESS}}"
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "flags"
+                                    }
+                                },
+                                "right": 41
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "dport"
+                                    }
+                                },
+                                "right": "{{REDIRECTED_PORT}}"
+                            }
+                        },
+                        {
+                            "mangle": {
+                                "key": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "dport"
+                                    }
+                                },
+                                "value": "{{DESTINATION_PORT}}"
+                            }
+                        },
+                        {
+                            "notrack": null
+                        },
+                        {
+                            "return": null
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "add": {
+                "rule": {
+                    "family": "ip",
+                    "table": "raw",
+                    "chain": "prerouting",
+                    "expr": [
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "ip",
+                                        "field": "saddr"
+                                    }
+                                },
+                                "right": "{{SOURCE_ADDRESS}}"
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "flags"
+                                    }
+                                },
+                                "right": 0
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "dport"
+                                    }
+                                },
+                                "right": "{{DESTINATION_PORT}}"
+                            }
+                        },
+                        {
+                            "mangle": {
+                                "key": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "dport"
+                                    }
+                                },
+                                "value": "{{REDIRECTED_PORT}}"
+                            }
+                        },
+                        {
+                            "notrack": null
+                        },
+                        {
+                            "return": null
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "add": {
+                "rule": {
+                    "family": "ip",
+                    "table": "raw",
+                    "chain": "prerouting",
+                    "expr": [
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "ip",
+                                        "field": "saddr"
+                                    }
+                                },
+                                "right": "{{SOURCE_ADDRESS}}"
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "flags"
+                                    }
+                                },
+                                "right": 0
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "dport"
+                                    }
+                                },
+                                "right": "{{REDIRECTED_PORT}}"
+                            }
+                        },
+                        {
+                            "mangle": {
+                                "key": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "dport"
+                                    }
+                                },
+                                "value": "{{DESTINATION_PORT}}"
+                            }
+                        },
+                        {
+                            "notrack": null
+                        },
+                        {
+                            "return": null
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "add": {
+                "rule": {
+                    "family": "ip",
+                    "table": "raw",
+                    "chain": "prerouting",
+                    "expr": [
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "ip",
+                                        "field": "saddr"
+                                    }
+                                },
+                                "right": "{{SOURCE_ADDRESS}}"
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "flags"
+                                    }
+                                },
+                                "right": 1
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "dport"
+                                    }
+                                },
+                                "right": "{{DESTINATION_PORT}}"
+                            }
+                        },
+                        {
+                            "mangle": {
+                                "key": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "dport"
+                                    }
+                                },
+                                "value": "{{REDIRECTED_PORT}}"
+                            }
+                        },
+                        {
+                            "notrack": null
+                        },
+                        {
+                            "return": null
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "add": {
+                "rule": {
+                    "family": "ip",
+                    "table": "raw",
+                    "chain": "prerouting",
+                    "expr": [
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "ip",
+                                        "field": "saddr"
+                                    }
+                                },
+                                "right": "{{SOURCE_ADDRESS}}"
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "flags"
+                                    }
+                                },
+                                "right": 1
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "dport"
+                                    }
+                                },
+                                "right": "{{REDIRECTED_PORT}}"
+                            }
+                        },
+                        {
+                            "mangle": {
+                                "key": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "dport"
+                                    }
+                                },
+                                "value": "{{DESTINATION_PORT}}"
+                            }
+                        },
+                        {
+                            "notrack": null
+                        },
+                        {
+                            "return": null
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "add": {
+                "rule": {
+                    "family": "ip",
+                    "table": "raw",
+                    "chain": "output",
+                    "expr": [
+                        {
+                            "match": {
+                                "op": "in",
+                                "left": {
+                                    "ct": {
+                                        "key": "state"
+                                    }
+                                },
+                                "right": "invalid"
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "ip",
+                                        "field": "daddr"
+                                    }
+                                },
+                                "right": "{{SOURCE_ADDRESS}}"
+                            }
+                        },
+                        {
+                            "match": {
+                                "op": "==",
+                                "left": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "sport"
+                                    }
+                                },
+                                "right": "{{REDIRECTED_PORT}}"
+                            }
+                        },
+                        {
+                            "mangle": {
+                                "key": {
+                                    "payload": {
+                                        "protocol": "{{PROTOCOL}}",
+                                        "field": "sport"
+                                    }
+                                },
+                                "value": "{{DESTINATION_PORT}}"
+                            }
+                        },
+                        {
+                            "return": null
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
