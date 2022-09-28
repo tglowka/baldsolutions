@@ -1,6 +1,6 @@
 # 1. Introduction
 
-Moving Target Defence (MTD) is an active defence principle that is focued on dynamic attack surface modifications.
+Moving Target Defence (MTD) is an active defence principle that is focsued on dynamic attack surface modifications.
 
 The following project is a PoC that shows how the MTD could be implemented.
 
