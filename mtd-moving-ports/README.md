@@ -43,7 +43,7 @@ Open second terminal and run:
 sudo docker-compose run bad-nmap
 ```
 
-`bad-nmap` and `good-nmap` containers have [Nmap](https://nmap.org/) tool installed - powerful network discovery tool.
+`bad-nmap` and `good-nmap` containers have [Nmap](https://nmap.org/) tool installed - a powerful network discovery tool.
 
 From inside the `bad-nmap` container run the [SYN](https://nmap.org/book/synscan.html) scan against `nftables` container, ports 1...20:
 ```
@@ -87,14 +87,14 @@ or
 ```
 python3 -m redis-message-launcher.main -r redis
 ```
-Once you send the message, you should see that the `nftables` container received the message (first terminal). Receiving the message means that the nftables rules has been applied. To verify let's run the SYN scan one more time (second terminal - `bad nmap` container):
+Once you send the message, you should see that the `nftables` container received the message (first terminal). Receiving the message means that the nftables rules have been applied. To verify let's run the SYN scan one more time (second terminal - `bad nmap` container):
 ```
 nmap -sS nftables -p1-20
 ```
 
 <img src="./pic/nmap-syn-scan-2.png" width="400">
 
-This time the scan tells us that there are 5 ports open: 1, 2, 6, 10, 16 (in your case the open ports apart from 1 and 2 will probably differ as they are randomly chosen). It means that nftables rules has been applied and the network traffic is redirected according to the PoC logic.
+This time the scan tells us that there are 5 ports open: 1, 2, 6, 10, 16 (in your case the open ports apart from 1 and 2 will probably differ as they are randomly chosen). It means that nftables rules have been applied and the network traffic is redirected according to the PoC logic.
 
 Let's run another message (fourth terminal - `nftables` container
 ```
