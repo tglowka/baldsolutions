@@ -79,7 +79,7 @@ Open fourth terminal and run:
 sudo docker-compose exec nftables sh
 ```
 
-`nftables` (as mentioned in the [architecture](#3-architecture) section), has a python app that is able to send messages to the `redis` container. To send a single message run:
+`nftables` (as mentioned in the [architecture](#3-architecture) section) has a python app that is able to send messages to the `redis` container. To send a single message run:
 ```
 python3 -m redis-message-launcher.main -r 10.0.0.5
 ```
