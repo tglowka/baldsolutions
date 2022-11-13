@@ -6,7 +6,6 @@ BenchmarkRunner.Run<CacheBenchmarks>();
 
 public class CacheBenchmarks
 {
-
     private readonly List<string> _keys = new();
 
     [GlobalSetup]
