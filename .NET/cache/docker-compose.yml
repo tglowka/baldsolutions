@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - "127.0.0.1:5432:5432"
+    networks:
+      network:
+        ipv4_address: 10.0.0.2
+        
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "127.0.0.1:6379:6379"
+    networks:
+      network:
+        ipv4_address: 10.0.0.3
+
+networks:
+  network:
+    name: cache-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.0.0/24
+          gateway: 10.0.0.1
