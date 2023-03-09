@@ -1,6 +1,6 @@
 # 1. Overview
 
-This application is a simulation of a simplified room reservation process. The main purpose of the simulation was to test the suitability and ease of use of the .NET Orleans framework. The application also presets two different load balancing techniques: round robin and wighted nodes approach.
+This application is a simulation of a simplified room reservation process. The main purpose of the simulation was to test the suitability and ease of use of the .NET Orleans framework. The application also presents two different load balancing techniques: round robin and weighted nodes approach.
 
 # 2. Architecture
 
