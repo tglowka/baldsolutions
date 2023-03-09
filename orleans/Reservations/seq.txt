@@ -1,0 +1,285 @@
+{
+  "OwnerId": "user-admin",
+  "Title": "New Dashboard",
+  "IsProtected": false,
+  "SignalExpression": null,
+  "Charts": [
+    {
+      "Id": "chart-17",
+      "Title": "Client - creation start",
+      "SignalExpression": null,
+      "Queries": [
+        {
+          "Id": "chartquery-18",
+          "Measurements": [
+            {
+              "Value": "count(*)",
+              "Label": "count"
+            }
+          ],
+          "Where": "GrainType = 'Client' and @Message like '%process started.'",
+          "SignalExpression": null,
+          "GroupBy": [],
+          "DisplayStyle": {
+            "Type": "Line",
+            "LineFillToZeroY": false,
+            "LineShowMarkers": true,
+            "BarOverlaySum": false,
+            "SuppressLegend": false,
+            "Palette": "Default"
+          },
+          "Having": null,
+          "OrderBy": [],
+          "Limit": null
+        }
+      ],
+      "DisplayStyle": {
+        "WidthColumns": 6,
+        "HeightRows": 1
+      }
+    },
+    {
+      "Id": "chart-20",
+      "Title": "Client - creation finished",
+      "SignalExpression": null,
+      "Queries": [
+        {
+          "Id": "chartquery-21",
+          "Measurements": [
+            {
+              "Value": "count(*)",
+              "Label": "count"
+            }
+          ],
+          "Where": "GrainType = 'Client' and @Message like '%process finished.%'",
+          "SignalExpression": null,
+          "GroupBy": [],
+          "DisplayStyle": {
+            "Type": "Line",
+            "LineFillToZeroY": false,
+            "LineShowMarkers": true,
+            "BarOverlaySum": false,
+            "SuppressLegend": false,
+            "Palette": "Default"
+          },
+          "Having": null,
+          "OrderBy": [],
+          "Limit": null
+        }
+      ],
+      "DisplayStyle": {
+        "WidthColumns": 6,
+        "HeightRows": 1
+      }
+    },
+    {
+      "Id": "chart-22",
+      "Title": "Client - creation start",
+      "SignalExpression": null,
+      "Queries": [
+        {
+          "Id": "chartquery-23",
+          "Measurements": [
+            {
+              "Value": "count(*)",
+              "Label": "count"
+            }
+          ],
+          "Where": "GrainType = 'Client' and @Message like '%process started.'",
+          "SignalExpression": null,
+          "GroupBy": [],
+          "DisplayStyle": {
+            "Type": "Value",
+            "LineFillToZeroY": false,
+            "LineShowMarkers": true,
+            "BarOverlaySum": false,
+            "SuppressLegend": false,
+            "Palette": "Default"
+          },
+          "Having": null,
+          "OrderBy": [],
+          "Limit": null
+        }
+      ],
+      "DisplayStyle": {
+        "WidthColumns": 6,
+        "HeightRows": 1
+      }
+    },
+    {
+      "Id": "chart-24",
+      "Title": "Client - creation finished",
+      "SignalExpression": null,
+      "Queries": [
+        {
+          "Id": "chartquery-25",
+          "Measurements": [
+            {
+              "Value": "count(*)",
+              "Label": "count"
+            }
+          ],
+          "Where": "GrainType = 'Client' and @Message like '%process finished.%'",
+          "SignalExpression": null,
+          "GroupBy": [],
+          "DisplayStyle": {
+            "Type": "Value",
+            "LineFillToZeroY": false,
+            "LineShowMarkers": true,
+            "BarOverlaySum": false,
+            "SuppressLegend": false,
+            "Palette": "Default"
+          },
+          "Having": null,
+          "OrderBy": [],
+          "Limit": null
+        }
+      ],
+      "DisplayStyle": {
+        "WidthColumns": 6,
+        "HeightRows": 1
+      }
+    },
+    {
+      "Id": "chart-26",
+      "Title": "Brokers",
+      "SignalExpression": null,
+      "Queries": [
+        {
+          "Id": "chartquery-27",
+          "Measurements": [
+            {
+              "Value": "count(*)",
+              "Label": "count"
+            }
+          ],
+          "Where": "GrainType = 'Broker'",
+          "SignalExpression": null,
+          "GroupBy": [
+            "GrainKey"
+          ],
+          "DisplayStyle": {
+            "Type": "Line",
+            "LineFillToZeroY": false,
+            "LineShowMarkers": true,
+            "BarOverlaySum": false,
+            "SuppressLegend": false,
+            "Palette": "Default"
+          },
+          "Having": null,
+          "OrderBy": [],
+          "Limit": null
+        }
+      ],
+      "DisplayStyle": {
+        "WidthColumns": 6,
+        "HeightRows": 2
+      }
+    },
+    {
+      "Id": "chart-28",
+      "Title": "Reservation Producers",
+      "SignalExpression": null,
+      "Queries": [
+        {
+          "Id": "chartquery-29",
+          "Measurements": [
+            {
+              "Value": "count(*)",
+              "Label": "count"
+            }
+          ],
+          "Where": "GrainType = 'ReservationProducer'",
+          "SignalExpression": null,
+          "GroupBy": [
+            "GrainKey"
+          ],
+          "DisplayStyle": {
+            "Type": "Line",
+            "LineFillToZeroY": false,
+            "LineShowMarkers": true,
+            "BarOverlaySum": false,
+            "SuppressLegend": false,
+            "Palette": "Default"
+          },
+          "Having": null,
+          "OrderBy": [],
+          "Limit": null
+        }
+      ],
+      "DisplayStyle": {
+        "WidthColumns": 6,
+        "HeightRows": 2
+      }
+    },
+    {
+      "Id": null,
+      "Title": "Broker Count",
+      "SignalExpression": null,
+      "Queries": [
+        {
+          "Id": null,
+          "Measurements": [
+            {
+              "Value": "Last(WorkerCount)",
+              "Label": "count"
+            }
+          ],
+          "Where": "GrainType = 'Manager`1' AND WorkerType = 'IBroker'",
+          "SignalExpression": null,
+          "GroupBy": [],
+          "Having": null,
+          "OrderBy": [],
+          "Limit": null,
+          "DisplayStyle": {
+            "Type": "Value",
+            "LineFillToZeroY": false,
+            "LineShowMarkers": true,
+            "Palette": "Default"
+          }
+        }
+      ],
+      "DisplayStyle": {
+        "WidthColumns": 6,
+        "HeightRows": 1
+      }
+    },
+    {
+      "Id": null,
+      "Title": "Reservation Producer Count",
+      "SignalExpression": null,
+      "Queries": [
+        {
+          "Id": null,
+          "Measurements": [
+            {
+              "Value": "Last(WorkerCount)",
+              "Label": "count"
+            }
+          ],
+          "Where": "GrainType = 'Manager`1' AND WorkerType = 'IReservationProducer'",
+          "SignalExpression": null,
+          "GroupBy": [],
+          "Having": null,
+          "OrderBy": [],
+          "Limit": null,
+          "DisplayStyle": {
+            "Type": "Value",
+            "LineFillToZeroY": false,
+            "LineShowMarkers": true,
+            "Palette": "Default"
+          }
+        }
+      ],
+      "DisplayStyle": {
+        "WidthColumns": 6,
+        "HeightRows": 1
+      }
+    }
+  ],
+  "Id": "dashboard-19",
+  "Links": {
+    "Self": "api/dashboards/dashboard-19?version=15",
+    "Group": "api/dashboards/resources"
+  }
+}
