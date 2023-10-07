@@ -87,6 +87,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cache-benchmark", "cache-be
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "caching", "caching\caching.csproj", "{6DA2F152-DDBF-4073-A98E-507C7D711B53}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "synchronization-primitives", "synchronization-primitives\synchronization-primitives.csproj", "{FB99C5C7-4A6F-4AAB-BDD1-DC35B5B90E04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -589,6 +591,18 @@ Global
 		{6DA2F152-DDBF-4073-A98E-507C7D711B53}.Release|x64.Build.0 = Release|Any CPU
 		{6DA2F152-DDBF-4073-A98E-507C7D711B53}.Release|x86.ActiveCfg = Release|Any CPU
 		{6DA2F152-DDBF-4073-A98E-507C7D711B53}.Release|x86.Build.0 = Release|Any CPU
+		{FB99C5C7-4A6F-4AAB-BDD1-DC35B5B90E04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB99C5C7-4A6F-4AAB-BDD1-DC35B5B90E04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB99C5C7-4A6F-4AAB-BDD1-DC35B5B90E04}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FB99C5C7-4A6F-4AAB-BDD1-DC35B5B90E04}.Debug|x64.Build.0 = Debug|Any CPU
+		{FB99C5C7-4A6F-4AAB-BDD1-DC35B5B90E04}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FB99C5C7-4A6F-4AAB-BDD1-DC35B5B90E04}.Debug|x86.Build.0 = Debug|Any CPU
+		{FB99C5C7-4A6F-4AAB-BDD1-DC35B5B90E04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB99C5C7-4A6F-4AAB-BDD1-DC35B5B90E04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB99C5C7-4A6F-4AAB-BDD1-DC35B5B90E04}.Release|x64.ActiveCfg = Release|Any CPU
+		{FB99C5C7-4A6F-4AAB-BDD1-DC35B5B90E04}.Release|x64.Build.0 = Release|Any CPU
+		{FB99C5C7-4A6F-4AAB-BDD1-DC35B5B90E04}.Release|x86.ActiveCfg = Release|Any CPU
+		{FB99C5C7-4A6F-4AAB-BDD1-DC35B5B90E04}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
