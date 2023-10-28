@@ -57,18 +57,18 @@ public static class BarrierExample
 
         void Phase0()
         {
-            FindHash(hashesStorage: _phase0Hashes, leadingZeroCount: 2);
+            FindAndStoreHash(hashesStorage: _phase0Hashes, leadingZeroCount: 2);
             _barrier.SignalAndWait();
         }
 
         void Phase1()
         {
-            FindHash(hashesStorage: _phase1Hashes, leadingZeroCount: 3);
+            FindAndStoreHash(hashesStorage: _phase1Hashes, leadingZeroCount: 3);
             _barrier.SignalAndWait();
         }
     }
 
-    public static void FindHash(ConcurrentDictionary<Guid, string> hashesStorage, int leadingZeroCount)
+    public static void FindAndStoreHash(ConcurrentDictionary<Guid, string> hashesStorage, int leadingZeroCount)
     {
         Guid guid;
         byte[] hash;
