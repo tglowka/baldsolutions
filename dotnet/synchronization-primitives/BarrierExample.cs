@@ -11,15 +11,15 @@ public static class BarrierExample
     public static void RunExample(int participantCount)
     {
         SetBarrier(participantCount);
-        StartPhases(participantCount);
+        StartAlgorithm(participantCount);
     }
 
     public static void SetBarrier(int participantCount)
         => _barrier = new Barrier(
                 participantCount,
-                (b) =>
+                (barrier) =>
                 {
-                    switch (b.CurrentPhaseNumber)
+                    switch (barrier.CurrentPhaseNumber)
                     {
                         case 0: PostPhase0Action(); break;
                         case 1: PostPhase1Action(); break;
@@ -28,32 +28,33 @@ public static class BarrierExample
 
                     void PostPhase0Action()
                     {
-                        Console.WriteLine($"\nPhase: {b.CurrentPhaseNumber} finished - hashes found: ");
+                        Console.WriteLine($"\nPhase: {barrier.CurrentPhaseNumber} finished - hashes found: ");
                         foreach (var (guid, hash) in _phase0Hashes)
                             Console.WriteLine($"Guid: {guid}, Hash: {hash}");
                     }
 
                     void PostPhase1Action()
                     {
-                        Console.WriteLine($"\nPhase: {b.CurrentPhaseNumber} finished - more hashes found.");
+                        Console.WriteLine($"\nPhase: {barrier.CurrentPhaseNumber} finished - more hashes found.");
                         foreach (var (guid, hash) in _phase1Hashes)
                             Console.WriteLine($"Guid: {guid}, Hash: {hash}");
                     }
                 }
                 );
 
-    public static void StartPhases(int participantCount)
+    public static void StartAlgorithm(int participantCount)
     {
         Console.WriteLine("Phases started!");
+
         var threads = new Thread[participantCount];
-        for (int i = 0; i < participantCount; i++)
-            threads[i] = new Thread(() =>
-            {
-                Phase0();
-                Phase1();
-            });
-        for (int i = 0; i < participantCount; i++)
-            threads[i].Start();
+        for (int i = 0; i < participantCount; i++) threads[i] = new Thread(Algorithm);
+        for (int i = 0; i < participantCount; i++) threads[i].Start();
+    }
+
+    public static void Algorithm()
+    {
+        Phase0();
+        Phase1();
 
         void Phase0()
         {
