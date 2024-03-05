@@ -20,5 +20,5 @@ var program = """
 
 var lexer = new Lexer(program);
 var parser = new Parser(lexer);
-var result = parser.Program();
+var result = parser.Parse();
 Console.WriteLine(result);

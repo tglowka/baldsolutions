@@ -23,7 +23,7 @@ public abstract class Node
 
 public abstract class TypedExpr: Node
 {
-    protected readonly Token? Op;
+    protected readonly Token Op;
     public readonly Type Type;
     
     protected TypedExpr(Token token, Type type)
@@ -59,7 +59,7 @@ public abstract class TypedExpr: Node
         => EmitJumps(ToString(), trueLabelNo, falseLabelNo);
 
     public override string ToString()
-        => Op!.ToString();
+        => Op.ToString();
 }
 
 public class Operation : TypedExpr
@@ -79,7 +79,7 @@ public class Operation : TypedExpr
 
 public class Id : TypedExpr
 {
-    public Id(Token? id, Type type) : base(id, type)
+    public Id(Token id, Type type) : base(id, type)
     {
     }
 }
@@ -89,7 +89,7 @@ public class Arith : Operation
     private readonly TypedExpr _leftExpr;
     private readonly TypedExpr _rightExpr;
 
-    public Arith(Token? token, TypedExpr leftExpr, TypedExpr rightExpr) : base(token, leftExpr.Type)
+    public Arith(Token token, TypedExpr leftExpr, TypedExpr rightExpr) : base(token, leftExpr.Type)
     {
         AssertType(leftExpr, rightExpr);
         _leftExpr = leftExpr;
@@ -214,7 +214,7 @@ public abstract class Logical : TypedExpr
 
 public class Or : Logical
 {
-    public Or(Token? token, TypedExpr leftExpr, TypedExpr rightExpr) : base(token, leftExpr, rightExpr)
+    public Or(Token token, TypedExpr leftExpr, TypedExpr rightExpr) : base(token, leftExpr, rightExpr)
     {
     }
 
@@ -232,7 +232,7 @@ public class Or : Logical
 
 public class And : Logical
 {
-    public And(Token? token, TypedExpr leftExpr, TypedExpr rightExpr) : base(token, leftExpr, rightExpr)
+    public And(Token token, TypedExpr leftExpr, TypedExpr rightExpr) : base(token, leftExpr, rightExpr)
     {
     }
 
@@ -250,7 +250,7 @@ public class And : Logical
 
 public class Not : Logical
 {
-    public Not(Token? token, TypedExpr rightExpr) : base(token, rightExpr, rightExpr)
+    public Not(Token token, TypedExpr rightExpr) : base(token, rightExpr, rightExpr)
     {
     }
 

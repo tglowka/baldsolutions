@@ -61,7 +61,7 @@ public class ParserTests
         var parser = new Parser(lexer);
         
         //act
-        var result = parser.Program();
+        var result = parser.Parse();
         
         //assert
         Assert.Equal(expected, result);

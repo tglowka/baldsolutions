@@ -11,7 +11,6 @@ public class Parser
     private readonly Lexer _lexer;
     private Token _look;
     private Env? _top;
-    private int _used;
 
     public Parser(Lexer lexer)
     {
@@ -37,7 +36,7 @@ public class Parser
         }
     }
 
-    public string Program()
+    public string Parse()
     {
         var stmt = Block();
         var begin = Node.NewLabel();
@@ -70,7 +69,6 @@ public class Parser
             Match(';');
             var id = new Id(token, type);
             _top?.Put(token, id);
-            _used += type.Width;
         }
     }
 
