@@ -1,7 +1,5 @@
 ﻿using DragonBook.lexer;
-using DragonBook.parser;
 using Type = DragonBook.symbols.Type;
-using Array = DragonBook.symbols.Array;
 
 namespace DragonBook.intermediate;
 
@@ -23,59 +21,54 @@ public abstract class Node
         => ++_labelNo;
 }
 
-public abstract class Expr : Node
+public abstract class TypedExpr: Node
 {
     protected readonly Token? Op;
-    public Type? Type;
-
-    protected Expr(Token? token, Type? type)
+    public readonly Type Type;
+    
+    protected TypedExpr(Token token, Type type)
     {
         Op = token;
         Type = type;
     }
 
-    protected static void EmitJumps(string test, int trueLabelNo, int falseLabelNo)
+    protected static void EmitJumps(string predicate, int trueLabelNo, int falseLabelNo)
     {
         if (trueLabelNo != 0 && falseLabelNo != 0)
         {
-            Emit($"if {test} goto L{trueLabelNo}");
+            Emit($"if {predicate} goto L{trueLabelNo}");
             Emit($"goto L{falseLabelNo}");
         }
         else if (trueLabelNo != 0)
         {
-            Emit($"if {test} goto L{trueLabelNo}");
+            Emit($"if {predicate} goto L{trueLabelNo}");
         }
         else if (falseLabelNo != 0)
         {
-            Emit($"if false {test} goto L{falseLabelNo}");
+            Emit($"if false {predicate} goto L{falseLabelNo}");
         }
     }
 
-    public virtual Expr Gen() => this;
+    public virtual TypedExpr Gen()
+        => this;
 
-    public virtual Expr Reduce() => this;
+    public virtual TypedExpr Reduce()
+        => this;
+    
+    public virtual void Jumping(int trueLabelNo, int falseLabelNo)
+        => EmitJumps(ToString(), trueLabelNo, falseLabelNo);
 
-    public virtual void Jumping(int trueLabelNo, int falseLabelNo) => EmitJumps(ToString(), trueLabelNo, falseLabelNo);
-
-    public override string ToString() => Op.ToString();
+    public override string ToString()
+        => Op!.ToString();
 }
 
-public class Id : Expr
+public class Operation : TypedExpr
 {
-    // public int Offset;
-
-    public Id(Token? id, Type? type, int relativeAddress) : base(id, type)
-    {
-    } // => Offset = relativeAddress;
-}
-
-public abstract class Op : Expr
-{
-    protected Op(Token? token, Type? type) : base(token, type)
+    protected Operation(Token token, Type type) : base(token, type)
     {
     }
-
-    public override Expr Reduce()
+    
+    public override TypedExpr Reduce()
     {
         var expr = Gen();
         var temp = new Temp(Type);
@@ -84,62 +77,83 @@ public abstract class Op : Expr
     }
 }
 
-public class Arith : Op
+public class Id : TypedExpr
 {
-    private readonly Expr _leftExpr;
-    private readonly Expr _rightExpr;
-
-    public Arith(Token? token, Expr leftExpr, Expr rightExpr) : base(token, null)
+    public Id(Token? id, Type type) : base(id, type)
     {
+    }
+}
+
+public class Arith : Operation
+{
+    private readonly TypedExpr _leftExpr;
+    private readonly TypedExpr _rightExpr;
+
+    public Arith(Token? token, TypedExpr leftExpr, TypedExpr rightExpr) : base(token, leftExpr.Type)
+    {
+        AssertType(leftExpr, rightExpr);
         _leftExpr = leftExpr;
         _rightExpr = rightExpr;
-        Type = Type.Max(_leftExpr.Type, _rightExpr.Type);
-        if (Type == null)
+    }
+
+    private void AssertType(TypedExpr leftExpr, TypedExpr rightExpr)
+    {
+        if (leftExpr.Type != rightExpr.Type)
         {
             Error("type error");
         }
     }
 
-    public override Expr Gen() => new Arith(Op, _leftExpr.Reduce(), _rightExpr.Reduce());
+    public override TypedExpr Gen()
+        => new Arith(Op, _leftExpr.Reduce(), _rightExpr.Reduce());
 
-    public override string ToString() => $"{_leftExpr} {Op} {_rightExpr}";
+    public override string ToString()
+        => $"{_leftExpr} {Op} {_rightExpr}";
 }
 
-public class Temp : Expr
+public class Temp : TypedExpr
 {
     private static int _count;
     private readonly int _number;
 
-    public Temp(Type? type) : base(Word.Temp, type) => _number = ++_count;
+    public Temp(Type type) : base(Word.Temp, type)
+        => _number = ++_count;
 
-    public override string ToString() => $"t{_number}";
+    public override string ToString()
+        => $"t{_number}";
 }
 
-public class Unary : Op
+public class Unary : Operation
 {
-    private readonly Expr _expr;
+    private readonly TypedExpr _expr;
 
-    public Unary(Token? token, Expr expr) : base(token, null)
+    public Unary(Token token, TypedExpr expr) : base(token, expr.Type)
     {
+        AssertType(expr);
         _expr = expr;
-        Type = Type.Max(Type.Int, _expr.Type);
-        if (Type == null)
+    }
+
+    private void AssertType(TypedExpr expr)
+    {
+        if (expr.Type != Type.Int && expr.Type != Type.Float)
         {
             Error("type error");
         }
     }
 
-    public override Expr Gen() => new Unary(Op, _expr.Reduce());
+    public override TypedExpr Gen()
+        => new Unary(Op, _expr.Reduce());
 
-    public override string ToString() => $"{Op} {_expr}";
+    public override string ToString()
+        => $"{Op} {_expr}";
 }
 
-public class Constant : Expr
+public class Constant : TypedExpr
 {
     public static readonly Constant True = new(Word.True, Type.Bool);
     public static readonly Constant False = new(Word.False, Type.Bool);
 
-    public Constant(Token? token, Type? type) : base(token, type)
+    public Constant(Token token, Type type) : base(token, type)
     {
     }
 
@@ -160,33 +174,27 @@ public class Constant : Expr
     }
 }
 
-public abstract class Logical : Expr
+public abstract class Logical : TypedExpr
 {
-    protected readonly Expr LeftExpr;
-    protected readonly Expr RightExpr;
+    protected readonly TypedExpr LeftExpr;
+    protected readonly TypedExpr RightExpr;
 
-    protected Logical(Token? token, Expr leftExpr, Expr rightExpr) : base(token, null)
+    protected Logical(Token token, TypedExpr leftExpr, TypedExpr rightExpr) : base(token, Type.Bool)
     {
+        AssertType(leftExpr, rightExpr);
         LeftExpr = leftExpr;
         RightExpr = rightExpr;
-        Type = Check(LeftExpr.Type, RightExpr.Type);
-        if (Type == null)
+    }
+
+    private void AssertType(TypedExpr left, TypedExpr right)
+    {
+        if (left.Type != right.Type)
         {
             Error("type error");
         }
     }
 
-    protected virtual Type? Check(Type? type1, Type? type2)
-    {
-        if (type1 == Type.Bool && type2 == Type.Bool)
-        {
-            return Type.Bool;
-        }
-
-        return null;
-    }
-
-    public override Expr Gen()
+    public override TypedExpr Gen()
     {
         var f = NewLabel();
         var a = NewLabel();
@@ -200,12 +208,13 @@ public abstract class Logical : Expr
         return temp;
     }
 
-    public override string ToString() => $"{LeftExpr} {Op} {RightExpr}";
+    public override string ToString()
+        => $"{LeftExpr} {Op} {RightExpr}";
 }
 
 public class Or : Logical
 {
-    public Or(Token? token, Expr leftExpr, Expr rightExpr) : base(token, leftExpr, rightExpr)
+    public Or(Token? token, TypedExpr leftExpr, TypedExpr rightExpr) : base(token, leftExpr, rightExpr)
     {
     }
 
@@ -223,7 +232,7 @@ public class Or : Logical
 
 public class And : Logical
 {
-    public And(Token? tok, Expr leftExpr, Expr rightExpr) : base(tok, leftExpr, rightExpr)
+    public And(Token? token, TypedExpr leftExpr, TypedExpr rightExpr) : base(token, leftExpr, rightExpr)
     {
     }
 
@@ -241,7 +250,7 @@ public class And : Logical
 
 public class Not : Logical
 {
-    public Not(Token? token, Expr rightExpr) : base(token, rightExpr, rightExpr)
+    public Not(Token? token, TypedExpr rightExpr) : base(token, rightExpr, rightExpr)
     {
     }
 
@@ -251,23 +260,15 @@ public class Not : Logical
 
 public class Rel : Logical
 {
-    public Rel(Token? token, Expr leftExpr, Expr rightExpr) : base(token, leftExpr, rightExpr)
+    public Rel(Token token, TypedExpr leftExpr, TypedExpr rightExpr) : base(token, leftExpr, rightExpr)
+        => AssertType(leftExpr, rightExpr);
+
+    private void AssertType(TypedExpr leftExpr, TypedExpr rightExpr)
     {
-    }
-
-    protected override Type? Check(Type? p1, Type? p2)
-    {
-        if (p1 is Array || p2 is Array)
+        if (!Type.IsNumeric(leftExpr.Type) || !Type.IsNumeric(rightExpr.Type))
         {
-            return null;
+            Error("type error");
         }
-
-        if (p1 == p2)
-        {
-            return Type.Bool;
-        }
-
-        return null;
     }
 
     public override void Jumping(int t, int f)
@@ -279,31 +280,30 @@ public class Rel : Logical
     }
 }
 
-public class Access : Op
+public class ArrayAccess : Operation
 {
-    public readonly Id Array;
-    public readonly Expr Index;
+    public readonly Id Id;
+    public readonly TypedExpr Index;
 
-    public Access(Id id, Expr expr, Type? type) : base(new Word("[]", Tag.Index), type)
+    public ArrayAccess(Id id, TypedExpr expr, Type type) : base(new Word("[]", Tag.Index), type)
     {
-        Array = id;
+        Id = id;
         Index = expr;
     }
 
-    public override Expr Gen() 
-        => new Access(Array, Index.Reduce(), Type);
+    public override TypedExpr Gen()
+        => new ArrayAccess(Id, Index.Reduce(), Type);
 
-    public override void Jumping(int t, int f) 
+    public override void Jumping(int t, int f)
         => EmitJumps(Reduce().ToString(), t, f);
 
-    public override string ToString() 
-        => $"{Array} [{Index}]";
+    public override string ToString()
+        => $"{Id} [{Index}]";
 }
 
-public class Stmt : Node
+public abstract class Stmt : Node
 {
-    public static readonly Stmt Null = new();
-    public static Stmt Enclosing = Null;
+    public static Stmt Enclosing = new EmptyStmt();
 
     public int After;
 
@@ -312,18 +312,27 @@ public class Stmt : Node
     }
 }
 
+public class EmptyStmt : Stmt
+{
+}
+
 public class If : Stmt
 {
-    private readonly Expr _expr;
+    private readonly TypedExpr _expr;
     private readonly Stmt _stmt;
 
-    public If(Expr x, Stmt s)
+    public If(TypedExpr expr, Stmt stmt)
     {
-        _expr = x;
-        _stmt = s;
-        if (_expr.Type != Type.Bool)
+        AssertType(expr);
+        _expr = expr;
+        _stmt = stmt;
+    }
+
+    private void AssertType(TypedExpr expr)
+    {
+        if (expr.Type != Type.Bool)
         {
-            _expr.Error("Boolean required in if");
+            Error("Boolean required in if");
         }
     }
 
@@ -336,20 +345,29 @@ public class If : Stmt
     }
 }
 
-public class Else : Stmt
+public class IfElse : Stmt
 {
-    private readonly Expr _expr;
+    private readonly TypedExpr _expr;
     private readonly Stmt _stmt1;
     private readonly Stmt _stmt2;
 
-    public Else(Expr x, Stmt s1, Stmt s2)
+    public IfElse(TypedExpr expr, Stmt stmt1, Stmt stmt2)
     {
-        _expr = x;
-        _stmt1 = s1;
-        _stmt2 = s2;
+        AssertType(expr);
+        _expr = expr;
+        _stmt1 = stmt1;
+        _stmt2 = stmt2;
         if (_expr.Type != Type.Bool) _expr.Error("boolean required in if");
     }
 
+    private void AssertType(TypedExpr expr)
+    {
+        if (expr.Type != Type.Bool)
+        {
+            Error("Boolean required in if");
+        }
+    }
+    
     public override void Gen(int beginLabel, int afterLabel)
     {
         var label1 = NewLabel();
@@ -364,23 +382,28 @@ public class Else : Stmt
 
 public class While : Stmt
 {
-    private Expr? _expr;
+    private TypedExpr _expr;
     private Stmt? _stmt;
 
-    public void Init(Expr expr, Stmt stmt)
+    public void Init(TypedExpr expr, Stmt stmt)
     {
+        AssertType(expr);
         _expr = expr;
         _stmt = stmt;
-        if (_expr.Type != Type.Bool)
-        {
-            _expr.Error("boolean required in if");
-        }
     }
 
+    private void AssertType(TypedExpr expr)
+    {
+        if (expr.Type != Type.Bool)
+        {
+            Error("Boolean required in if");
+        }
+    }
+    
     public override void Gen(int beginLabel, int afterLabel)
     {
         After = afterLabel;
-        _expr?.Jumping(0, afterLabel);
+        _expr.Jumping(0, afterLabel);
         var label = NewLabel();
         EmitLabel(label);
         _stmt?.Gen(label, beginLabel);
@@ -390,16 +413,21 @@ public class While : Stmt
 
 public class Do : Stmt
 {
-    private Expr? _expr;
+    private TypedExpr _expr;
     private Stmt? _stmt;
 
-    public void Init(Stmt stmt, Expr expr)
+    public void Init(Stmt stmt, TypedExpr expr)
     {
+        AssertType(expr);
         _expr = expr;
         _stmt = stmt;
-        if (_expr.Type != Type.Bool)
+    }
+    
+    private void AssertType(TypedExpr expr)
+    {
+        if (expr.Type != Type.Bool)
         {
-            _expr.Error("boolean required in if");
+            Error("Boolean required in if");
         }
     }
 
@@ -416,78 +444,54 @@ public class Do : Stmt
 public class Set : Stmt
 {
     private readonly Id _id;
-    private readonly Expr _expr;
+    private readonly TypedExpr _expr;
 
-    public Set(Id id, Expr expr)
+    public Set(Id id, TypedExpr expr)
     {
+        AssertType(id, expr);
         _id = id;
         _expr = expr;
-        if (Check(_id.Type, _expr.Type) == null)
+    }
+
+    private void AssertType(TypedExpr id, TypedExpr expr)
+    {
+        if (id.Type != expr.Type)
         {
             Error("type error");
         }
     }
 
-    private static Type? Check(Type? type1, Type? type2)
-    {
-        if (Type.IsNumeric(type1) && Type.IsNumeric(type2))
-        {
-            return type2;
-        }
-
-        if (type1 == Type.Bool && type2 == Type.Bool)
-        {
-            return type2;
-        }
-
-        return null;
-    }
-
-    public override void Gen(int beginLabel, int afterLabel) => Emit($"{_id} = {_expr.Gen()}");
+    public override void Gen(int beginLabel, int afterLabel)
+        => Emit($"{_id} = {_expr.Gen()}");
 }
 
 public class SetArrayElem : Stmt
 {
-    private readonly Id _array;
-    private readonly Expr _index;
-    private readonly Expr _expr;
+    private readonly Id _id;
+    private readonly TypedExpr _index;
+    private readonly TypedExpr _expr;
 
-    public SetArrayElem(Access access, Expr expr)
+    public SetArrayElem(ArrayAccess arrayAccess, TypedExpr expr)
     {
-        _array = access.Array;
-        _index = access.Index;
+        AssertType(arrayAccess, expr);
+        _id = arrayAccess.Id;
+        _index = arrayAccess.Index;
         _expr = expr;
-        if (Check(access.Type, _expr.Type) == null)
+    }
+    
+    private void AssertType(ArrayAccess arrayAccess, TypedExpr expr)
+    {
+        if (!Type.AreEqual(arrayAccess.Id.Type, expr.Type))
         {
             Error("type error");
         }
-    }
-
-    private static Type? Check(Type? type1, Type? type2)
-    {
-        if (type1 is Array || type2 is Array)
-        {
-            return null;
-        }
-
-        if (type1 == type2)
-        {
-            return type2;
-        }
-
-        if (Type.IsNumeric(type1) && Type.IsNumeric(type2))
-        {
-            return type2;
-        }
-
-        return null;
     }
 
     public override void Gen(int beginLabel, int afterLabel)
     {
         var index = _index.Reduce().ToString();
         var expr = _expr.Reduce().ToString();
-        Emit($"{_array} [{index}] = {expr}");
+        Emit($"{_id} [{index}] = {expr}");
     }
 }
 
@@ -504,11 +508,11 @@ public class StmtSeq : Stmt
 
     public override void Gen(int beginLabel, int afterLabel)
     {
-        if (_stmt1 == Null)
+        if (_stmt1 is EmptyStmt)
         {
             _stmt2.Gen(beginLabel, afterLabel);
         }
-        else if (_stmt2 == Null)
+        else if (_stmt2 is EmptyStmt)
         {
             _stmt1.Gen(beginLabel, afterLabel);
         }
@@ -528,7 +532,7 @@ public class Break : Stmt
 
     public Break()
     {
-        if (Enclosing == Null)
+        if (Enclosing is EmptyStmt)
         {
             Error("unenclosed break");
         }
@@ -536,5 +540,6 @@ public class Break : Stmt
         _stmt = Enclosing;
     }
 
-    public override void Gen(int beginLabel, int afterLabel) => Emit($"goto L{_stmt.After}");
+    public override void Gen(int beginLabel, int afterLabel) 
+        => Emit($"goto L{_stmt.After}");
 }

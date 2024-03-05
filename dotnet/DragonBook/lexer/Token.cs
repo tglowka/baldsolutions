@@ -34,5 +34,6 @@ public record Word(string Lexeme, int Tag) : Token(Tag)
     public static readonly Word Break = new("break", lexer.Tag.Break);
     public static readonly Word Temp = new("t", lexer.Tag.Temp);
 
-    public override string ToString() => Lexeme;
+    public override string ToString() 
+        => Lexeme;
 };

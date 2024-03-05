@@ -68,7 +68,7 @@ public class Parser
             var token = _look;
             Match(Tag.Id);
             Match(';');
-            var id = new Id(token, type, _used);
+            var id = new Id(token, type);
             _top?.Put(token, id);
             _used += type.Width;
         }
@@ -100,19 +100,19 @@ public class Parser
 
     private Stmt StmtSeq() =>
         _look.Tag == '}'
-            ? intermediate.Stmt.Null
+            ? new EmptyStmt()
             : new StmtSeq(Stmt(), StmtSeq());
 
     private Stmt Stmt()
     {
-        Expr condition;
+        TypedExpr condition;
         Stmt stmt, savedStmt;
 
         switch (_look.Tag)
         {
             case ';':
                 Move();
-                return intermediate.Stmt.Null;
+                return new EmptyStmt();
             case Tag.If:
                 Match(Tag.If);
                 Match('(');
@@ -126,7 +126,7 @@ public class Parser
 
                 Match(Tag.Else);
                 var elseStmt = Stmt();
-                return new Else(condition, stmt, elseStmt);
+                return new IfElse(condition, stmt, elseStmt);
             case Tag.While:
                 var whileNode = new While();
                 savedStmt = intermediate.Stmt.Enclosing;
@@ -191,7 +191,7 @@ public class Parser
         return stmt;
     }
 
-    private Expr Boolean()
+    private TypedExpr Boolean()
     {
         var expr = Join();
         while (_look.Tag == Tag.Or)
@@ -204,7 +204,7 @@ public class Parser
         return expr;
     }
 
-    private Expr Join()
+    private TypedExpr Join()
     {
         var expr = Equality();
         while (_look.Tag == Tag.And)
@@ -217,7 +217,7 @@ public class Parser
         return expr;
     }
 
-    private Expr Equality()
+    private TypedExpr Equality()
     {
         var expr = Rel();
         while (_look.Tag == Tag.Eq || _look.Tag == Tag.Ne)
@@ -230,7 +230,7 @@ public class Parser
         return expr;
     }
 
-    private Expr Rel()
+    private TypedExpr Rel()
     {
         var expr = Expr();
         switch (_look.Tag)
@@ -247,7 +247,7 @@ public class Parser
         }
     }
 
-    private Expr Expr()
+    private TypedExpr Expr()
     {
         var expr = Term();
         while (_look.Tag is '+' or '-')
@@ -260,7 +260,7 @@ public class Parser
         return expr;
     }
 
-    private Expr Term()
+    private TypedExpr Term()
     {
         var expr = Unary();
         while (_look.Tag is '*' or '/')
@@ -273,7 +273,7 @@ public class Parser
         return expr;
     }
 
-    private Expr Unary()
+    private TypedExpr Unary()
     {
         switch (_look.Tag)
         {
@@ -291,9 +291,9 @@ public class Parser
         }
     }
 
-    private Expr Factor()
+    private TypedExpr Factor()
     {
-        Expr expr;
+        TypedExpr expr;
         switch (_look.Tag)
         {
             case '(':
@@ -336,14 +336,14 @@ public class Parser
         }
     }
 
-    private Access Offset(Id id)
+    private ArrayAccess Offset(Id id)
     {
-        Expr expr, widthExpr, t1, t2, loc;
+        TypedExpr expr, widthExpr, t1, t2, loc;
         var type = id.Type;
         Match('[');
         expr = Boolean();
         Match(']');
-        type = ((Array)type!).Of;
+        type = ((Array)type!).Type;
         widthExpr = new Constant(type!.Width);
         t1 = new Arith(new Token('*'), expr, widthExpr);
         loc = t1;
@@ -352,13 +352,13 @@ public class Parser
             Match('[');
             expr = Boolean();
             Match(']');
-            type = ((Array)type).Of;
+            type = ((Array)type).Type;
             widthExpr = new Constant(type!.Width);
             t1 = new Arith(new Token('*'), expr, widthExpr);
             t2 = new Arith(new Token('+'), loc, t1);
             loc = t2;
         }
 
-        return new Access(id, loc, type);
+        return new ArrayAccess(id, loc, type);
     }
 }

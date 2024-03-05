@@ -41,37 +41,20 @@ public record Type(string Lexeme, int Tag, int Width) : Word(Lexeme, Tag)
     public static bool IsNumeric(Type? type)
         => type == Char || type == Int || type == Float;
 
-    public static Type? Max(Type? left, Type? right)
-    {
-        if (!IsNumeric(left) || !IsNumeric(right))
-        {
-            return null;
-        }
-
-        if (left == Float || right == Float)
-        {
-            return Float;
-        }
-
-        if (left == Int || right == Int)
-        {
-            return Int;
-        }
-
-        return Char;
-    }
+    public static bool AreEqual(Type type1, Type type2)
+        => type1.Lexeme == type2.Lexeme;
 }
 
-public record Array : Type
+public sealed record Array : Type
 {
     private readonly int _size = 1;
-    public readonly Type? Of;
+    public readonly Type Type;
 
-    public Array(int size, Type type) : base("[]", Tags.Index, size * type.Width)
+    public Array(int size, Type type) : base(type.Lexeme, Tags.Index, size * type.Width)
     {
         _size = size;
-        Of = type;
+        Type = type;
     }
 
-    public override string ToString() => $"[{_size}] {Of}";
+    public override string ToString() => $"[{_size}] {Type}";
 }
