@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.Numerics;
+using baby_step_giant_step;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 
